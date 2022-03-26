@@ -27,11 +27,11 @@ const Room = (props) => {
             webSocketRef.current = new WebSocket(`ws://localhost:8000/join?roomID=${roomID[2]}`)
 
             
-           webSocketRef.current.addEventListener("open", () => {
+           await webSocketRef.current.addEventListener("open", () => {
                 webSocketRef.current.send(JSON.stringify({ join: true }));
             });
 
-            webSocketRef.current.addEventListener("message", async (e) => {
+            await webSocketRef.current.addEventListener("message", async (e) => {
                 const message = JSON.parse(e.data);
 
                 if (message.join) {
@@ -82,7 +82,7 @@ const Room = (props) => {
         const answer = await peerRef.current.createAnswer();
         await peerRef.current.setLocalDescription(answer);
 
-         webSocketRef.current.send(
+        await webSocketRef.current.send(
             JSON.stringify({ answer: peerRef.current.localDescription })
         );
     };
@@ -116,7 +116,7 @@ const Room = (props) => {
             const myOffer = await peerRef.current.createOffer();
             await peerRef.current.setLocalDescription(myOffer);
 
-             webSocketRef.current.send(
+            await webSocketRef.current.send(
                 JSON.stringify({ offer: peerRef.current.localDescription })
             );
         } catch (err) {}
@@ -126,7 +126,7 @@ const Room = (props) => {
         console.log("Found Ice Candidate");
         if (e.candidate) {
             console.log(e.candidate);
-             webSocketRef.current.send(
+            await webSocketRef.current.send(
                 JSON.stringify({ iceCandidate: e.candidate })
             );
         }
