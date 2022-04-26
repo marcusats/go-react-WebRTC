@@ -1,8 +1,7 @@
-import { useState } from 'react'
-import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
+import {BrowserRouter, Route, Routes, } from "react-router-dom";
 
 import CreateRoom from './components/CreateRoom';
-import Room from './components/Room';
+import Room from './components/Rooms';
 
 function App() {
   
@@ -17,6 +16,6 @@ function App() {
       </BrowserRouter>
     </div>
   )
-}
+} 
 
 export default App
